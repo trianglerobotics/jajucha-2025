@@ -13,11 +13,14 @@ function App(): JSX.Element {
       }
     }
 
-    fetchWifiInfo();
+    // 500ms interval
+    const interval = setInterval(fetchWifiInfo, 500);
+    return () => clearInterval(interval
+    );
   }, []);
 
   return (
-    <div style={{ padding: '20px' }}>
+    <div style={{ padding: '20px' }} className='b'>
       <h1>Wi-Fi Info</h1>
       {wifiInfo ? (
         <pre>{JSON.stringify(wifiInfo, null, 2)}</pre>
