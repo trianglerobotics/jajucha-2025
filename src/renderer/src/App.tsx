@@ -20,7 +20,7 @@ function App(): JSX.Element {
   }, []);
 
   return (
-    <div style={{ padding: '20px' }} className='b'>
+    <div style={{ padding: '20px' }}>
       <h1>Wi-Fi Info</h1>
       {wifiInfo ? (
         <pre>{JSON.stringify(wifiInfo, null, 2)}</pre>
