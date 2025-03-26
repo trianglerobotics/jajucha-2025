@@ -21,11 +21,11 @@ function App(): JSX.Element {
 
   return (
     <div style={{ padding: '20px' }}>
-      <h1>Wi-Fi Info</h1>
+      <h1 className='bg-[3'>Wi-Fi Info</h1>
       {wifiInfo ? (
         <pre>{JSON.stringify(wifiInfo, null, 2)}</pre>
       ) : (
-        <p>Loading...</p>
+        <p className='bg-white'>Loading...</p>
       )}
     </div>
   );
