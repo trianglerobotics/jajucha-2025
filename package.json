@@ -23,14 +23,14 @@
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.1",
     "@electron-toolkit/utils": "^4.0.0",
-    "@tailwindcss/vite": "^4.0.14",
+    "autoprefixer": "^10.4.21",
     "electron-updater": "^6.3.9",
     "ffi-napi": "^4.0.3",
+    "postcss": "^8.5.3",
     "ref-array-di": "^1.2.2",
     "ref-array-napi": "^1.2.2",
     "ref-napi": "^3.0.3",
-    "ref-struct-di": "^1.1.1",
-    "tailwindcss": "^4.0.14"
+    "ref-struct-di": "^1.1.1"
   },
   "devDependencies": {
     "@electron-toolkit/eslint-config-prettier": "^3.0.0",
