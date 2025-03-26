@@ -1,4 +1,7 @@
 import { useState, useEffect } from 'react';
+import Header from './components/Header';
+import WiFi from './components/WiFi';
+import MainBgImage from './assets/images/main-bg.svg';
 
 function App(): JSX.Element {
   const [wifiInfo, setWifiInfo] = useState<any>(null);
@@ -13,20 +16,34 @@ function App(): JSX.Element {
       }
     }
 
-    // 500ms interval
     const interval = setInterval(fetchWifiInfo, 500);
-    return () => clearInterval(interval
-    );
+    return () => clearInterval(interval);
   }, []);
 
   return (
-    <div style={{ padding: '20px' }}>
-      <h1 className='bg-[3'>Wi-Fi Info</h1>
-      {wifiInfo ? (
-        <pre>{JSON.stringify(wifiInfo, null, 2)}</pre>
-      ) : (
-        <p className='bg-white'>Loading...</p>
-      )}
+    <div
+      className="h-screen flex flex-col text-white min-w-[960px]"
+      style={{ backgroundImage: `url(${MainBgImage})`, backgroundSize: 'cover' }}
+    >
+      {/* Header는 고정 높이 */}
+      <div className="h-[60px] shrink-0">
+        <Header wifiInfo={wifiInfo} />
+      </div>
+
+      {/* 아래 영역 전체 채우는 영역 */}
+      <div className="flex-grow h-0">
+        {(() => {
+          const tpLink = wifiInfo?.find(item => item.interfaceName.startsWith("TP-Link"));
+          return tpLink ? (
+            <webview
+              className="flex w-full h-full"
+              src="http://172.30.1.16:5173/"
+            />
+          ) : (
+            <WiFi />
+          );
+        })()}
+      </div>
     </div>
   );
 }

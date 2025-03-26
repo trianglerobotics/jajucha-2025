@@ -3,7 +3,10 @@ import { electronAPI } from '@electron-toolkit/preload';
 
 // Custom APIs for renderer
 const api = {
-  getWifiInfo: () => ipcRenderer.invoke('get-wifi-info')
+  getWifiInfo: () => ipcRenderer.invoke('get-wifi-info'),
+  minimizeWindow: () => ipcRenderer.invoke('minimize-window'),
+  maximizeWindow: () => ipcRenderer.invoke('maximize-window'),
+  closeWindow: () => ipcRenderer.invoke('close-window')
 };
 
 // Use `contextBridge` APIs to expose Electron APIs to
