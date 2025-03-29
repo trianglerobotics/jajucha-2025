@@ -6,7 +6,9 @@ const api = {
   getWifiInfo: () => ipcRenderer.invoke('get-wifi-info'),
   minimizeWindow: () => ipcRenderer.invoke('minimize-window'),
   maximizeWindow: () => ipcRenderer.invoke('maximize-window'),
-  closeWindow: () => ipcRenderer.invoke('close-window')
+  closeWindow: () => ipcRenderer.invoke('close-window'),
+  getDiskUsage: () => ipcRenderer.invoke('get-disk-usage'),
+  getBatteryInfo: () => ipcRenderer.invoke('get-battery-info'),
 };
 
 // Use `contextBridge` APIs to expose Electron APIs to

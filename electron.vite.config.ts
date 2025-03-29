@@ -7,7 +7,7 @@ export default defineConfig({
     plugins: [externalizeDepsPlugin()],
     build: {
       rollupOptions: {
-        external: ['ffi-napi', 'ref-napi', 'ref-array-napi', 'ref-struct-di'] // ⚠️ 추가
+        external: ['ffi-napi', 'ref-napi', 'ref-array-napi', 'ref-struct-di'] // ⚠️ 추가,
       }
     }
   },

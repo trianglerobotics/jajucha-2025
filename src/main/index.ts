@@ -2,6 +2,7 @@ import { app, BrowserWindow, ipcMain } from 'electron';
 import { join } from 'path';
 import { electronApp, optimizer, is } from '@electron-toolkit/utils';
 import { getAllConnectedWifiInfo } from './wifi';
+import axios from 'axios';
 import path from 'path';
 
 let mainWindow;
@@ -23,6 +24,9 @@ function createWindow() {
       webviewTag: true,
     }
   });
+
+  // mainWindow.webContents.openDevTools({ mode: 'right' });
+
 
   mainWindow.on("ready-to-show", () => {
     setTimeout(() => {
@@ -49,7 +53,8 @@ function createSplashScreen() {
     icon: path.join(__dirname, '../../public/icon.ico'),
     frame: false, // 창 테두리 제거 (필요하면 true로 변경)
     alwaysOnTop: true,
-    transparent: false, // 흰색 배경이므로 투명 비활성화
+    transparent: true, // ✅ 배경 투명하게
+    backgroundColor: '#00000000', // ✅ 완전 투명 배경
     autoHideMenuBar: true, // 💡 메뉴바 숨기기
     resizable: false, // 💡 창 크기 고정
     show: false, // 💡 처음에는 숨김
@@ -72,13 +77,69 @@ app.whenReady().then(() => {
 
   createSplashScreen(); // 스플래시 화면 생성
   createWindow(); // 메인 윈도우 생성
+
+    // ✅ CSP 무력화 (fetch 등 외부 요청 허용용)
 });
+
+
+ipcMain.handle('get-disk-usage', async () => {
+  const fetchDiskUsage = async () => {
+    try {
+      const { data } = await axios.get('http://121.184.63.113:4000/api/diskusage');
+      
+      const total = data.total;
+      const free = data.free;
+      const used = total - free; // 83736748032
+      const usedPercentage = Math.round((used / total) * 100); // ≈ 33.57%
+      console.log(usedPercentage);
+      return usedPercentage;
+
+    } catch (error) {
+      console.error('Failed to fetch disk usage:', error);
+      return null;
+    }
+  };
+
+  return fetchDiskUsage(); 
+});
+
+ipcMain.handle('get-battery-info', async () => {
+  const fetchBatteryInfo = async () => {
+    try {
+      const motor = await axios.get(`http://121.184.63.113:4000/api/motorstatus`);
+      // console.log(motor.data.storedData.substring(2, 5));
+      
+      const result = Math.floor(
+        ((parseFloat(motor.data.storedData.substring(2, 5)) / 10 - 12) / (15.9 - 12)) * 10
+      ) * 10;
+      console.log(result);
+      if(result < 10) {
+        return 10;
+      }
+      if(result > 100) {
+        return 100;
+      }
+      
+      return result;
+
+    } catch (error) {
+      console.error('Failed to fetch battery info:', error);
+      return null;
+    }
+  };
+
+  return fetchBatteryInfo(); 
+});
+
+
 
 // Handle IPC requests from the renderer process
 ipcMain.handle('get-wifi-info', async () => {
   try {
-    console.log('Getting Wi-Fi info...');
+    // console.log('Getting Wi-Fi info...');
     return getAllConnectedWifiInfo();
+
+    
   } catch (error) {
     console.error('Error getting Wi-Fi info:', error);
     return { error: 'Failed to retrieve Wi-Fi information' };

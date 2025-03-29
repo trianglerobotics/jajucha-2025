@@ -7,31 +7,71 @@ import WindowMinimizeImage from '../assets/images/svg/window-minimize.svg';
 import WindowMaximizeImage from '../assets/images/svg/window-maximize.svg';
 import WindowCloseImage from '../assets/images/svg/window-close.svg';
 
+import batt_10 from '../assets/images/svg/batt_10.svg';
+import batt_20 from '../assets/images/svg/batt_20.svg';
+import batt_30 from '../assets/images/svg/batt_30.svg';
+import batt_40 from '../assets/images/svg/batt_40.svg';
+import batt_50 from '../assets/images/svg/batt_50.svg';
+import batt_60 from '../assets/images/svg/batt_60.svg';
+import batt_70 from '../assets/images/svg/batt_70.svg';
+import batt_80 from '../assets/images/svg/batt_80.svg';
+import batt_90 from '../assets/images/svg/batt_90.svg';
+import batt_100 from '../assets/images/svg/batt_100.svg';
+
+const batteryImages = {
+  batt_100,
+  batt_90,
+  batt_80,
+  batt_70,
+  batt_60,
+  batt_50,
+  batt_40,
+  batt_30,
+  batt_20,
+  batt_10,
+};
+
 const Header = ({ wifiInfo }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [diskUsage, setDiskUsage] = useState(null);
+  const [batteryInfo, setBatteryInfo] = useState(null);
   const menuRef = useRef(null); // 메뉴 영역 참조용
 
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
   };
 
-  // useEffect(() => {
-  //   const handleClickOutside = (event) => {
-  //     if (menuRef.current && !menuRef.current.contains(event.target)) {
-  //       setIsMenuOpen(false);
-  //     }
-  //   };
+  useEffect(() => {
+    async function fetchWifiInfo() {
+      try {
+        const data = await window.api.getDiskUsage();
+        setDiskUsage(data);
+      } catch (error) {
+        console.error('Error fetching Wi-Fi info:', error);
+      }
+    }
+    fetchWifiInfo(); // 초기 로딩 시에도 한번 호출
+    
+    const interval = setInterval(fetchWifiInfo, 5000);
+    return () => clearInterval(interval);
+  }, []);
 
-  //   if (isMenuOpen) {
-  //     document.addEventListener("mousedown", handleClickOutside);
-  //   } else {
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //   }
+  useEffect(() => {
+    async function fetchBatteryInfo() {
+      try {
+        const data = await window.api.getBatteryInfo();
+        setBatteryInfo(data);
+      } catch (error) {
+        console.error('Error fetching battery info:', error);
+      }
+    }
+    fetchBatteryInfo(); // 초기 로딩 시에도 한번 호출
 
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //   };
-  // }, [isMenuOpen]);
+    const interval = setInterval(fetchBatteryInfo, 5000);
+    return () => clearInterval(interval);
+  
+  }, []);
+
 
   return (
     <>
@@ -55,14 +95,18 @@ const Header = ({ wifiInfo }) => {
         {/* 오른쪽 정보들 */}
         <div className="flex items-center" style={{ WebkitAppRegion: 'no-drag' }}>
           <div className="flex items-center gap-4">
+            {batteryInfo !== null && (
             <div className="flex items-center gap-2">
-              <img src={BatteryImage} alt="Battery" className="h-6" />
-              <span>75%</span>
+              <img src={batteryImages[`batt_${batteryInfo}`]} className="h-6" />
+              <span>{batteryInfo}%</span>
             </div>
+            )}
+            {diskUsage !== null && (
             <div className="flex items-center gap-2">
               <img src={DriveImage} alt="Drive" className="h-6" />
-              <span>34%</span>
+              <span>{diskUsage}%</span>
             </div>
+            )}
             <button className="flex items-center py-[3px] pl-[3px] pr-4 rounded-full bg-[rgba(132,132,132,0.208)]">
               <div className="border-circle bg-brand-primary rounded-full p-1 mr-2">
                 <img src={RemoteImage} alt="Remote" className="h-6" />
@@ -70,9 +114,10 @@ const Header = ({ wifiInfo }) => {
               <span className="flex px-2">
                 {(() => {
                   const tpLink = wifiInfo?.find((item) =>
-                    item.interfaceName.startsWith('TP-Link')
+                    item.interfaceName.startsWith('TP-Link') &&
+                    item.ssid?.includes('jajucha')
                   );
-                  return tpLink ? `${tpLink.ssid}` : 'Disconnected';
+                  return tpLink ? `${tpLink.ssid}` : '연결없음';
                 })()}
               </span>
             </button>
