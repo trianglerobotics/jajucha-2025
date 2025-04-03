@@ -1,6 +1,5 @@
 import { useState,useEffect,useRef  } from 'react';
-import LogoImage from '../assets/images/svg/logo.svg';
-import BatteryImage from '../assets/images/svg/battery.svg';
+import Veluna from '../assets/images/person.png';
 import RemoteImage from '../assets/images/svg/remote.svg';
 import DriveImage from '../assets/images/svg/drive.svg';
 import WindowMinimizeImage from '../assets/images/svg/window-minimize.svg';
@@ -89,7 +88,7 @@ const Header = ({ wifiInfo }) => {
             toggleMenu();
           }}
         >
-          <img src={LogoImage} alt="Logo" className="h-8" />
+          <img src={Veluna} alt="Logo" className="h-8" />
         </a>
 
         {/* 오른쪽 정보들 */}
@@ -174,6 +173,13 @@ const Header = ({ wifiInfo }) => {
                 className="w-full p-2 hover:bg-purple-400 rounded-lg flex items-center gap-2 transition-colors duration-200"
               >
                 🔌 <span>About</span>
+              </a>
+              {/* refresh */}
+              <a
+                href="#"
+                className="w-full p-2 hover:bg-purple-400 rounded-lg flex items-center gap-2 transition-colors duration-200"
+              >
+                🔄 <span>Refresh</span>
               </a>
             </li>
           </ul>

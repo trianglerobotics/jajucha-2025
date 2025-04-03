@@ -1,9 +1,9 @@
 {
-  "name": "jajucha-2025",
+  "name": "Veluna",
   "version": "1.0.0",
   "description": "An Electron application with React and TypeScript",
   "main": "./out/main/index.js",
-  "author": "example.com",
+  "author": "TX co.,LTD",
   "homepage": "https://electron-vite.org",
   "scripts": {
     "format": "prettier --write .",
@@ -62,6 +62,11 @@
       "node_modules/ref-napi/**/*",
       "node_modules/ref-array-napi/**/*",
       "node_modules/ref-struct-di/**/*"
-    ]
+    ],
+    "productName": "Veluna",
+      "win": {
+          "target": "NSIS",
+          "icon": "public/icon.ico"
+        }
   }
 }

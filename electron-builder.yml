@@ -1,5 +1,5 @@
 appId: com.electron.app
-productName: jajucha-2025
+productName: Veluna
 directories:
   buildResources: build
 files:
@@ -12,7 +12,7 @@ files:
 asarUnpack:
   - resources/**
 win:
-  executableName: jajucha-2025
+  executableName: Veluna
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}

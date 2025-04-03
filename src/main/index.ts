@@ -85,7 +85,9 @@ app.whenReady().then(() => {
 ipcMain.handle('get-disk-usage', async () => {
   const fetchDiskUsage = async () => {
     try {
-      const { data } = await axios.get('http://121.184.63.113:4000/api/diskusage');
+      const { data } = await axios.get('http://121.184.63.113:4000/api/diskusage', {
+        timeout: 5000 // ⏱️ 5초 후 타임아웃
+      });
       
       const total = data.total;
       const free = data.free;
@@ -106,8 +108,9 @@ ipcMain.handle('get-disk-usage', async () => {
 ipcMain.handle('get-battery-info', async () => {
   const fetchBatteryInfo = async () => {
     try {
-      const motor = await axios.get(`http://121.184.63.113:4000/api/motorstatus`);
-      // console.log(motor.data.storedData.substring(2, 5));
+      const motor = await axios.get('http://121.184.63.113:4000/api/motorstatus', {
+        timeout: 5000 // ⏱️ 5초 후 타임아웃
+      });
       
       const result = Math.floor(
         ((parseFloat(motor.data.storedData.substring(2, 5)) / 10 - 12) / (15.9 - 12)) * 10
