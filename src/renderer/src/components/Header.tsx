@@ -30,11 +30,11 @@ const batteryImages = {
   batt_10,
 };
 
-const Header = ({ wifiInfo }) => {
+const Header = ({ wifiInfo,reloadWebview }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [diskUsage, setDiskUsage] = useState(null);
   const [batteryInfo, setBatteryInfo] = useState(null);
-  const menuRef = useRef(null); // 메뉴 영역 참조용
+  const menuRef = useRef<HTMLDivElement | null>(null);
 
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
@@ -71,7 +71,39 @@ const Header = ({ wifiInfo }) => {
   
   }, []);
 
-
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const clickedElement = event.target as Node;
+      const isInsideMenu = menuRef.current?.contains(clickedElement);
+      const isToggleButton = (clickedElement as HTMLElement)?.closest('[data-menu-toggle]');
+  
+      if (!isInsideMenu && !isToggleButton) {
+        setIsMenuOpen(false);
+      }
+    };
+  
+    const handleEscKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsMenuOpen(false);
+      }
+    };
+  
+    if (isMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('keydown', handleEscKey); // 👈 ESC 이벤트 추가
+      window.addEventListener('blur', () => setIsMenuOpen(false));
+    }
+  
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEscKey); // 👈 정리도 해줘야 함
+      window.removeEventListener('blur', () => setIsMenuOpen(false));
+    };
+  }, [isMenuOpen]);
+  
+  
+  
+  
   return (
     <>
       <div
@@ -83,9 +115,10 @@ const Header = ({ wifiInfo }) => {
           href="#"
           className="hover:opacity-75"
           style={{ WebkitAppRegion: 'no-drag' }}
+          data-menu-toggle
           onClick={(e) => {
             e.preventDefault();
-            toggleMenu();
+            toggleMenu()
           }}
         >
           <img src={Veluna} alt="Logo" className="h-8" />
@@ -160,24 +193,13 @@ const Header = ({ wifiInfo }) => {
         >
           <ul className="flex flex-col space-y-1 text-xl px-1 w-full">
             <li>
-              <a
-                href="#"
-                className="w-full p-2 hover:bg-purple-400 rounded-lg flex items-center gap-2 transition-colors duration-200"
-              >
-                ⚙️   <span>  Settings</span>
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="w-full p-2 hover:bg-purple-400 rounded-lg flex items-center gap-2 transition-colors duration-200"
-              >
-                🔌 <span>About</span>
-              </a>
               {/* refresh */}
               <a
-                href="#"
-                className="w-full p-2 hover:bg-purple-400 rounded-lg flex items-center gap-2 transition-colors duration-200"
+                onClick={(e) => {
+                  e.preventDefault();
+                  reloadWebview(true);
+                }}
+                className="w-full p-2 hover:bg-purple-400 hover:cursor-pointer rounded-lg flex items-center gap-2 transition-colors duration-200"
               >
                 🔄 <span>Refresh</span>
               </a>

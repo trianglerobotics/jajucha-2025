@@ -93,7 +93,6 @@ ipcMain.handle('get-disk-usage', async () => {
       const free = data.free;
       const used = total - free; // 83736748032
       const usedPercentage = Math.round((used / total) * 100); // ≈ 33.57%
-      console.log(usedPercentage);
       return usedPercentage;
 
     } catch (error) {
@@ -115,7 +114,6 @@ ipcMain.handle('get-battery-info', async () => {
       const result = Math.floor(
         ((parseFloat(motor.data.storedData.substring(2, 5)) / 10 - 12) / (15.9 - 12)) * 10
       ) * 10;
-      console.log(result);
       if(result < 10) {
         return 10;
       }
