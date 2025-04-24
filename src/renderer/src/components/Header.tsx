@@ -156,7 +156,7 @@ const Header = ({ wifiInfo,reloadWebview }) => {
           </div>
 
           {/* 창 조작 버튼 */}
-          <div className="flex items-center gap-4 ml-[40px]">
+          <div className="flex items-center gap-4 ml-[40px]" style={{ WebkitAppRegion: 'no-drag' }}>
             <button>
               <img
                 src={WindowMinimizeImage}
