@@ -31,7 +31,7 @@ const WiFiGuide = ({ onClose }) => {
           </p>
           <img src={WiFiIMG} alt="Wi-Fi Icon" className="w-[300px]  mx-auto mb-4  shadow-xl rounded-lg" />
         </div>
-        <div className='flex text-black justify-center items-center  pt-5'>
+        <div className='flex text-black justify-center items-center  pt-5 hover:cursor-pointer'>
           <div className='flex w-full h-[50px] bg-[#6A2A4F] rounded-xl justify-center items-center cursor-pointer text-white font-semibold text-[16px]' onClick={onClose}>
             닫기
           </div>

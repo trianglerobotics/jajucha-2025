@@ -30,7 +30,7 @@ function App(): JSX.Element {
 
   // ✅ Webview 수동 리로드
   const reloadWebview = () => {
-    const webview = webviewRef.current;
+    const webview = webviewRef.current as any;
     if (!webview) {
       console.warn('❌ Webview not mounted yet.');
       return;
@@ -55,7 +55,7 @@ function App(): JSX.Element {
 
   // ✅ webview 이벤트 등록 및 로딩 처리
   useEffect(() => {
-    const webview = webviewRef.current;
+    const webview = webviewRef.current as any;
     if (!currentSSID || !webview) return;
 
     const baseWidth = 1920;
@@ -110,7 +110,7 @@ function App(): JSX.Element {
   // ✅ 창 크기 조정 시 줌 비율 설정
   useEffect(() => {
     const handleResize = () => {
-      const webview = webviewRef.current;
+      const webview = webviewRef.current as any;
       if (!webview) return;
 
       const baseWidth = 1920;

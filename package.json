@@ -1,7 +1,7 @@
 {
   "name": "Veluna",
-  "version": "1.0.0",
-  "description": "An Electron application with React and TypeScript",
+  "version": "2.0.0",
+  "description": "Veluna - A powerful and flexible tool for Edge AI development",
   "main": "./out/main/index.js",
   "author": "TX co.,LTD",
   "homepage": "https://electron-vite.org",
