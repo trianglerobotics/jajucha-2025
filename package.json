@@ -1,6 +1,6 @@
 {
   "name": "Veluna",
-  "version": "2.0.0",
+  "version": "2.0.2",
   "description": "Veluna - A powerful and flexible tool for Edge AI development",
   "main": "./out/main/index.js",
   "author": "TX co.,LTD",

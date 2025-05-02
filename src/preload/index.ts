@@ -9,6 +9,8 @@ const api = {
   closeWindow: () => ipcRenderer.invoke('close-window'),
   getDiskUsage: () => ipcRenderer.invoke('get-disk-usage'),
   getBatteryInfo: () => ipcRenderer.invoke('get-battery-info'),
+  openNcpa: () => ipcRenderer.invoke('open-ncpa'),
+  openWifiTray: () => ipcRenderer.invoke('open-tray-wifi'),
 };
 
 // Use `contextBridge` APIs to expose Electron APIs to

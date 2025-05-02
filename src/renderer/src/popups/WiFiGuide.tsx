@@ -1,6 +1,7 @@
 import CloseIcon from '../assets/images/svg/close.svg';
 import DongleIMG from '../assets/images/dongle.png';
 import WiFiIMG from '../assets/images/wifi.png';
+import WiFiPWD from '../assets/images/wifi_pwd.png';
 import AdapterImg from '../assets/images/adapter.png';
 import RunImg from '../assets/images/run.png';
 
@@ -18,18 +19,23 @@ const WiFiGuide = ({ onClose }) => {
           </p>
           <img src={DongleIMG} alt="Wi-Fi Icon" className="w-[300px]  mx-auto mb-4  " />
           <p className="text-[16px] text-[#444444] font-medium">
-            2. Win + R 키를 눌러 실행창 열기,<span className='font-semibold'> ncpa.cpl </span> 입력 후 확인 버튼 클릭 <br />
+            2. 아래 이미지를 클릭하여 어뎁터 설정창을 활성화 합니다 <br />
           </p>        
-          <img src={RunImg} alt="Wi-Fi Icon" className="w-[300px]  mx-auto mb-4  rounded-lg" />
+          <img src={RunImg} onClick={window.api.openNcpa} alt="Wi-Fi Icon" className="w-[320px]  mx-auto mb-4  rounded-lg hover:cursor-pointer hover:scale-105 duration-300 hover:shadow-lg" />
           <p className="text-[16px] text-[#444444] font-medium">
-            3. TP-Link Wireless USB Adapter 에 해당하는 Wi-Fi 번호를 확인 합니다 <span className='font-base text-[14px] text-[#9e9e9e]' > 예시) Wi-Fi 2</span> 
+            3. TP-Link Wireless USB Adapter 에 해당하는 Wi-Fi 인터페이스 번호를 확인 합니다 <span className='font-base text-[14px] text-[#676767]' > 예시) Wi-Fi 2</span> 
           </p>        
-          <img src={AdapterImg} alt="Wi-Fi Icon" className="w-[300px]  mx-auto mb-4 rounded-lg" />
+          <img src={AdapterImg} alt="Wi-Fi Icon" className="w-[320px]  mx-auto mb-4 " />
           <p className="text-[16px] text-[#444444] font-medium">
-            4. Wi-Fi 인터페이스와 네트워크를 선택하고 보안 키를 입력 하세요
-            <span className='font-base text-[14px] text-[#9e9e9e]' > 보안 키는 'jajucha123'입니다.</span>
+            4. 이미지를 클릭하여 와이파이 연결창을 활성화 합니다
+            {/* <span className='font-bold text-[14px] text-[#676767]' > 보안 키는 'jajucha123'입니다.</span> */}
           </p>
-          <img src={WiFiIMG} alt="Wi-Fi Icon" className="w-[300px]  mx-auto mb-4  shadow-xl rounded-lg" />
+          <img src={WiFiIMG} onClick={window.api.openWifiTray} alt="Wi-Fi Icon" className="w-[300px]  mx-auto mb-4 hover:cursor-pointer hover:scale-105 duration-300 hover:shadow-lg" />
+          <p className="text-[16px] text-[#444444] font-medium">
+            5. Wi-Fi 인터페이스와 네트워크를 선택하고 보안 키를 입력 하세요
+            <span className='font-bold text-[14px] text-[#676767]' > 보안 키는 'jajucha123'입니다.</span>
+          </p>
+          <img src={WiFiPWD}  alt="Wi-Fi Icon" className="w-[300px]  mx-auto mb-4" />
         </div>
         <div className='flex text-black justify-center items-center  pt-5 hover:cursor-pointer'>
           <div className='flex w-full h-[50px] bg-[#6A2A4F] rounded-xl justify-center items-center cursor-pointer text-white font-semibold text-[16px]' onClick={onClose}>

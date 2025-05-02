@@ -7,6 +7,8 @@ import { useState } from 'react';
 const WiFi = () => {
 
   const [showGuide, setShowGuide] = useState(true);
+
+
   return (
     <div className="flex flex-col mx-auto py-[124px] px-6 max-w-[95%]">
       {/* Header */}

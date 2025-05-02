@@ -9,6 +9,8 @@ declare global {
       minimizeWindow: () => void;
       maximizeWindow: () => void;
       closeWindow: () => void;
+      openNcpa: () => void;
+      openWifiTray: () => void;
     };
   }
 }

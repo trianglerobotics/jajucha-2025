@@ -4,6 +4,7 @@ import { electronApp, optimizer, is } from '@electron-toolkit/utils';
 import { getAllConnectedWifiInfo } from './wifi';
 import axios from 'axios';
 import path from 'path';
+import { exec } from 'child_process';
 
 let mainWindow;
 let splash;
@@ -96,7 +97,7 @@ ipcMain.handle('get-disk-usage', async () => {
       return usedPercentage;
 
     } catch (error) {
-      console.error('Failed to fetch disk usage:', error);
+      // console.error('Failed to fetch disk usage:', error);
       return null;
     }
   };
@@ -124,7 +125,7 @@ ipcMain.handle('get-battery-info', async () => {
       return result;
 
     } catch (error) {
-      console.error('Failed to fetch battery info:', error);
+      // console.error('Failed to fetch battery info:', error);
       return null;
     }
   };
@@ -142,7 +143,7 @@ ipcMain.handle('get-wifi-info', async () => {
 
     
   } catch (error) {
-    console.error('Error getting Wi-Fi info:', error);
+    // console.error('Error getting Wi-Fi info:', error);
     return { error: 'Failed to retrieve Wi-Fi information' };
   }
 });
@@ -163,6 +164,34 @@ ipcMain.handle('maximize-window', () => {
 
 ipcMain.handle('close-window', () => {
   mainWindow.close();
+});
+
+ipcMain.handle('open-ncpa', async () => {
+  exec('control ncpa.cpl', (error, stdout, stderr) => {
+    if (error) {
+      console.error(`Error: ${error.message}`);
+      return;
+    }
+    if (stderr) {
+      console.error(`Stderr: ${stderr}`);
+      return;
+    }
+    console.log(`Stdout: ${stdout}`);
+  });
+});
+
+ipcMain.handle('open-tray-wifi', async () => {
+  exec('explorer.exe ms-availablenetworks:', (error, stdout, stderr) => {
+    if (error) {
+      console.error(`Error: ${error.message}`);
+      return;
+    }
+    if (stderr) {
+      console.error(`Stderr: ${stderr}`);
+      return;
+    }
+    console.log(`Stdout: ${stdout}`);
+  });
 });
 
 

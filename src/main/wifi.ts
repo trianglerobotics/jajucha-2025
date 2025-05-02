@@ -171,6 +171,8 @@ export function getAllConnectedWifiInfo() {
     .map(iface => {
       const wifiInfo: WifiInfo = getInterfaceConnectedWifiInfo(wlanHandle, iface.guid);
 
+       
+
       return {
         interfaceindex: iface.index,
         interfaceName: iface.name,
