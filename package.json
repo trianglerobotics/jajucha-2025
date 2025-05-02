@@ -1,7 +1,7 @@
 {
-  "name": "Veluna",
+  "name": "jajucha",
   "version": "2.0.2",
-  "description": "Veluna - A powerful and flexible tool for Edge AI development",
+  "description": "jajucha - A powerful and flexible tool for Edge AI development",
   "main": "./out/main/index.js",
   "author": "TX co.,LTD",
   "homepage": "https://electron-vite.org",
@@ -63,7 +63,7 @@
       "node_modules/ref-array-napi/**/*",
       "node_modules/ref-struct-di/**/*"
     ],
-    "productName": "Veluna",
+    "productName": "jajucha",
       "win": {
           "target": "NSIS",
           "icon": "public/icon.ico"
