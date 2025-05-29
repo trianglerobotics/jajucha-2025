@@ -1,5 +1,5 @@
 import { useState,useEffect,useRef  } from 'react';
-import Veluna from '../assets/images/person.png';
+import Veluna from '../assets/images/altinoai_logo.svg';
 import RemoteImage from '../assets/images/svg/remote.svg';
 import DriveImage from '../assets/images/svg/drive.svg';
 import WindowMinimizeImage from '../assets/images/svg/window-minimize.svg';

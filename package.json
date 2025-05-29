@@ -1,10 +1,10 @@
 {
-  "name": "jajucha",
-  "version": "2.0.2",
-  "description": "jajucha - A powerful and flexible tool for Edge AI development",
+  "name": "AltinoAI",
+  "version": "1.0.0",
+  "description": "AltinoAI - A powerful and flexible tool for Edge AI development",
   "main": "./out/main/index.js",
   "author": "TX co.,LTD",
-  "homepage": "https://electron-vite.org",
+  "homepage": "https://Veluna.com",
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint --cache .",
@@ -63,10 +63,10 @@
       "node_modules/ref-array-napi/**/*",
       "node_modules/ref-struct-di/**/*"
     ],
-    "productName": "jajucha",
+    "productName": "Veluna",
       "win": {
           "target": "NSIS",
-          "icon": "public/icon.ico"
+          "icon": "public/altino.ico"
         }
   }
 }

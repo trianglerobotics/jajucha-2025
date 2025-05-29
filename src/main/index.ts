@@ -15,7 +15,7 @@ function createWindow() {
     height: 1080,
     minWidth: 1200,
     minHeight: 700,
-    icon: path.join(__dirname, '../../public/icon.ico'),
+    icon: path.join(__dirname, '../../public/altino.ico'),
     show: false, // 처음에는 숨김
     autoHideMenuBar: true,
     frame: false, // 창 테두리 제거 (필요하면 true로 변경)
@@ -51,7 +51,7 @@ function createSplashScreen() {
   splash = new BrowserWindow({
     width: 960,  // 💡 가로 크기 1200px
     height: 540, // 💡 세로 크기 800px
-    icon: path.join(__dirname, '../../public/icon.ico'),
+    icon: path.join(__dirname, '../../public/altino.ico'),
     frame: false, // 창 테두리 제거 (필요하면 true로 변경)
     alwaysOnTop: true,
     transparent: true, // ✅ 배경 투명하게

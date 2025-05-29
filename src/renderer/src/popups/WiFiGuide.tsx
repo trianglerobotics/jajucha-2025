@@ -15,24 +15,26 @@ const WiFiGuide = ({ onClose }) => {
         </div>
         <div className='flex flex-col h-[500px] gap-8 overflow-auto mt-5 scrollbar-thin'>
           <p className="text-[16px] text-[#444444] font-medium">
-            1. PC의 USB 포트에 Wi-Fi 동글을 연결합니다. <br />
+            1. PC의 USB 포트에 <strong>Wi-Fi 동글</strong>을 연결합니다.
           </p>
           <img src={DongleIMG} alt="Wi-Fi Icon" className="w-[300px]  mx-auto mb-4  " />
           <p className="text-[16px] text-[#444444] font-medium">
-            2. 아래 이미지를 클릭하여 어댑터 설정 창을 엽니다. <br />
+            2. 아래 이미지를 클릭하여 <strong>어댑터 설정 창</strong>을 엽니다.
           </p>        
           <img src={RunImg} onClick={window.api.openNcpa} alt="Wi-Fi Icon" className="w-[320px]  mx-auto mb-4  rounded-lg hover:cursor-pointer hover:scale-105 duration-300 hover:shadow-lg" />
           <p className="text-[16px] text-[#444444] font-medium">
-            3. TP-Link Wireless USB Adapter에 해당하는 Wi-Fi 인터페이스 이름(예: Wi-Fi 2)을 확인합니다. 
+            3. <strong>TP-Link Wireless USB Adapter</strong>에 해당하는 Wi-Fi 인터페이스 이름
+            (예: <strong>Wi-Fi 2</strong>)을 확인합니다.
           </p>        
           <img src={AdapterImg} alt="Wi-Fi Icon" className="w-[320px]  mx-auto mb-4 " />
           <p className="text-[16px] text-[#444444] font-medium">
-            4. 아래 이미지를 클릭하여 Wi-Fi 연결 창을 엽니다.
+            4. 아래 이미지를 클릭하여 <strong>Wi-Fi 연결 창</strong>을 엽니다.
             {/* <span className='font-bold text-[14px] text-[#676767]' > 보안 키는 'jajucha123'입니다.</span> */}
           </p>
           <img src={WiFiIMG} onClick={window.api.openWifiTray} alt="Wi-Fi Icon" className="w-[300px]  mx-auto mb-4 hover:cursor-pointer hover:scale-105 duration-300 hover:shadow-lg" />
           <p className="text-[16px] text-[#444444] font-medium">
-            5. 사용하려는 Wi-Fi 인터페이스와 네트워크를 선택한 후, 보안 키로 **jajucha123**을 입력하세요.
+            5. 인터페이스를 선택한 뒤, <strong>jajucha_</strong>로 시작하는 Wi-Fi를 선택하고
+            보안 키 <strong>jajucha123</strong>을 입력하세요.
           </p>
           <img src={WiFiPWD}  alt="Wi-Fi Icon" className="w-[300px]  mx-auto mb-4" />
         </div>
