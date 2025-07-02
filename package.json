@@ -63,7 +63,7 @@
       "node_modules/ref-array-napi/**/*",
       "node_modules/ref-struct-di/**/*"
     ],
-    "productName": "Veluna",
+    "productName": "AltinoAI",
       "win": {
           "target": "NSIS",
           "icon": "public/altino.ico"

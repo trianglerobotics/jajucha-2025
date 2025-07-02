@@ -1,5 +1,5 @@
 appId: com.electron.app
-productName: Veluna
+productName: AltinoAI
 directories:
   buildResources: build
 files:
@@ -12,7 +12,7 @@ files:
 asarUnpack:
   - resources/**
 win:
-  executableName: Veluna
+  executableName: AltinoAI
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}

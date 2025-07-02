@@ -147,7 +147,7 @@ const Header = ({ wifiInfo,reloadWebview }) => {
                 {(() => {
                   const tpLink = wifiInfo?.find((item) =>
                     item.interfaceName.startsWith('TP-Link') &&
-                    item.ssid?.includes('jajucha')
+                    item.ssid?.includes('altinoai')
                   );
                   return tpLink ? `${tpLink.ssid}` : '연결없음';
                 })()}
