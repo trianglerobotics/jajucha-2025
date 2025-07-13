@@ -1,6 +1,6 @@
 {
   "name": "AltinoAI",
-  "version": "1.0.0",
+  "version": "2.1.1",
   "description": "AltinoAI - A powerful and flexible tool for Edge AI development",
   "main": "./out/main/index.js",
   "author": "TX co.,LTD",
