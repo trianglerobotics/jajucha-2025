@@ -50,7 +50,7 @@ function App(): JSX.Element {
   const currentSSID = wifiInfo?.find(
     item =>
       item.interfaceName?.startsWith('TP-Link') &&
-      item.ssid?.includes('altinoai')
+      item.ssid?.includes('Veluna')
   )?.ssid;
 
   // ✅ webview 이벤트 등록 및 로딩 처리
@@ -129,7 +129,7 @@ function App(): JSX.Element {
     const isTPLinkConnected = wifiInfo?.some(
       item =>
         item.interfaceName?.startsWith('TP-Link') &&
-        item.ssid?.includes('altinoai')
+        item.ssid?.includes('Veluna')
     );
     if (!isTPLinkConnected) {
       setLoading(true);
@@ -150,7 +150,7 @@ function App(): JSX.Element {
           const tpLink = wifiInfo?.find(
             item =>
               item.interfaceName?.startsWith('TP-Link') &&
-              item.ssid?.includes('altinoai')
+              item.ssid?.includes('Veluna')
           );
 
           if (!tpLink) return <WiFi />;

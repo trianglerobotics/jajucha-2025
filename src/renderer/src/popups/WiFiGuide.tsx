@@ -33,8 +33,8 @@ const WiFiGuide = ({ onClose }) => {
           </p>
           <img src={WiFiIMG} onClick={window.api.openWifiTray} alt="Wi-Fi Icon" className="w-[300px]  mx-auto mb-4 hover:cursor-pointer hover:scale-105 duration-300 hover:shadow-lg" />
           <p className="text-[16px] text-[#444444] font-medium">
-            5. 인터페이스를 선택한 뒤, <strong>altinoai_</strong>로 시작하는 Wi-Fi를 선택하고
-            보안 키 <strong>altinoai</strong>을 입력하세요.
+            5. 인터페이스를 선택한 뒤, <strong>Veluna_</strong>로 시작하는 Wi-Fi를 선택하고
+            보안 키 <strong>veluna123</strong>을 입력하세요.
           </p>
           <img src={WiFiPWD}  alt="Wi-Fi Icon" className="w-[300px]  mx-auto mb-4" />
         </div>

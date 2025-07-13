@@ -1,5 +1,5 @@
 import { useState,useEffect,useRef  } from 'react';
-import Veluna from '../assets/images/altinoai_logo.svg';
+import Veluna from '../assets/images/veluna_logo.png';
 import RemoteImage from '../assets/images/svg/remote.svg';
 import DriveImage from '../assets/images/svg/drive.svg';
 import WindowMinimizeImage from '../assets/images/svg/window-minimize.svg';
@@ -147,7 +147,7 @@ const Header = ({ wifiInfo,reloadWebview }) => {
                 {(() => {
                   const tpLink = wifiInfo?.find((item) =>
                     item.interfaceName.startsWith('TP-Link') &&
-                    item.ssid?.includes('altinoai')
+                    item.ssid?.includes('Veluna')
                   );
                   return tpLink ? `${tpLink.ssid}` : '연결없음';
                 })()}
