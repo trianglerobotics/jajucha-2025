@@ -1,10 +1,10 @@
 {
-  "name": "AltinoAI",
+  "name": "Veluna",
   "version": "2.1.1",
-  "description": "AltinoAI - A powerful and flexible tool for Edge AI development",
+  "description": "Veluna - A powerful and flexible tool for Edge AI development",
   "main": "./out/main/index.js",
   "author": "TX co.,LTD",
-  "homepage": "https://Veluna.com",
+  "homepage": "https://tx-rb.com",
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint --cache .",
@@ -63,7 +63,7 @@
       "node_modules/ref-array-napi/**/*",
       "node_modules/ref-struct-di/**/*"
     ],
-    "productName": "AltinoAI",
+    "productName": "Veluna",
       "win": {
           "target": "NSIS",
           "icon": "public/altino.ico"
