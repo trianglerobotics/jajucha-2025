@@ -1,6 +1,6 @@
 {
   "name": "Veluna",
-  "version": "2.1.1",
+  "version": "3.0.0",
   "description": "Veluna - A powerful and flexible tool for Edge AI development",
   "main": "./out/main/index.js",
   "author": "TX co.,LTD",
@@ -26,7 +26,10 @@
     "axios": "^1.8.4",
     "electron-updater": "^6.3.9",
     "ffi-napi": "^4.0.3",
+    "i18next": "^25.3.2",
+    "i18next-browser-languagedetector": "^8.2.0",
     "node-fetch": "^3.3.2",
+    "react-i18next": "^15.6.1",
     "ref-array-di": "^1.2.2",
     "ref-array-napi": "^1.2.2",
     "ref-napi": "^3.0.3",
@@ -64,9 +67,9 @@
       "node_modules/ref-struct-di/**/*"
     ],
     "productName": "Veluna",
-      "win": {
-          "target": "NSIS",
-          "icon": "public/Veluna.ico"
-        }
+    "win": {
+      "target": "NSIS",
+      "icon": "public/Veluna.ico"
+    }
   }
 }

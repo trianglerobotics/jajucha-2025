@@ -2,16 +2,18 @@ import { useState, useEffect, useRef } from 'react';
 import Header from './components/Header';
 import WiFi from './components/WiFi';
 import MainBgImage from './assets/images/main-bg.jpg';
+import i18n from '../i18n'; // ✅ 부모앱 i18n
 
 function App(): JSX.Element {
   const [wifiInfo, setWifiInfo] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
-  const webviewRef = useRef<HTMLWebViewElement | null>(null);
+  const webviewRef = useRef<any | null>(null);
   const retryCountRef = useRef(0);
   const isReloadingRef = useRef(false);
 
   const MAX_RETRIES = 10;
+  const BASE_URL = 'http://121.184.63.113:3000/';
 
   // ✅ Wi-Fi 정보 주기적으로 가져오기
   useEffect(() => {
@@ -48,10 +50,53 @@ function App(): JSX.Element {
 
   // ✅ 현재 TP-Link의 SSID 추출
   const currentSSID = wifiInfo?.find(
-    item =>
+    (item: any) =>
       item.interfaceName?.startsWith('TP-Link') &&
       item.ssid?.includes('Veluna')
   )?.ssid;
+
+  // ✅ webview에 언어 반영 (in-page 우선, 실패 시 ?lang= 폴백)
+  const applyLangToWebview = async (code: string) => {
+    const wv = webviewRef.current as any;
+    if (!wv) return;
+
+    try {
+      const ok = await wv.executeJavaScript(`
+        (function(){
+          try {
+            // 재방문 시 유지
+            localStorage.setItem('i18nextLng', '${code}');
+            if (window.i18n && typeof window.i18n.changeLanguage === 'function') {
+              window.i18n.changeLanguage('${code}');
+              return true;
+            } else {
+              return false;
+            }
+          } catch (e) { return false; }
+        })();
+      `);
+
+      if (!ok) {
+        const current = wv.getURL?.() || '${BASE_URL}';
+        const url = new URL(current, '${BASE_URL}');
+        url.searchParams.set('lang', '${code}');
+        wv.loadURL(url.toString());
+      }
+    } catch {
+      const url = new URL('${BASE_URL}');
+      url.searchParams.set('lang', '${code}');
+      wv.loadURL(url.toString());
+    }
+  };
+
+  // ✅ 부모 i18n 변경을 webview에 브릿지 (Header에서 i18n.changeLanguage 호출 시 자동 반영)
+  useEffect(() => {
+    const handler = (lng: string) => {
+      applyLangToWebview(lng);
+    };
+    i18n.on('languageChanged', handler);
+    return () => i18n.off('languageChanged', handler);
+  }, []);
 
   // ✅ webview 이벤트 등록 및 로딩 처리
   useEffect(() => {
@@ -62,12 +107,20 @@ function App(): JSX.Element {
     const currentWidth = window.innerWidth;
     const zoomFactor = currentWidth / baseWidth;
 
+    const onDomReady = () => {
+      // 초기/재진입 시점에도 언어 한 번 반영 (안전망)
+      applyLangToWebview(i18n.language);
+    };
+
     const onDidFinishLoad = () => {
       console.log('✅ Webview finished loading');
       webview.setZoomFactor?.(zoomFactor);
       setLoading(false);
       retryCountRef.current = 0;
       isReloadingRef.current = false;
+
+      // 로드 완료 후에도 한번 더 반영
+      applyLangToWebview(i18n.language);
     };
 
     const onDidFailLoad = (e: any) => {
@@ -98,10 +151,12 @@ function App(): JSX.Element {
       }
     };
 
+    webview.addEventListener('dom-ready', onDomReady);
     webview.addEventListener('did-finish-load', onDidFinishLoad);
     webview.addEventListener('did-fail-load', onDidFailLoad);
 
     return () => {
+      webview.removeEventListener('dom-ready', onDomReady);
       webview.removeEventListener('did-finish-load', onDidFinishLoad);
       webview.removeEventListener('did-fail-load', onDidFailLoad);
     };
@@ -127,7 +182,7 @@ function App(): JSX.Element {
   // ✅ WiFi 끊겼을 때 로딩 스피너 유지
   useEffect(() => {
     const isTPLinkConnected = wifiInfo?.some(
-      item =>
+      (item: any) =>
         item.interfaceName?.startsWith('TP-Link') &&
         item.ssid?.includes('Veluna')
     );
@@ -135,6 +190,9 @@ function App(): JSX.Element {
       setLoading(true);
     }
   }, [wifiInfo]);
+
+  // ✅ 초기 진입도 현재 언어를 붙여 로드 (자식이 아직 i18n 전역을 못 노출한 시점 대비)
+  const initialSrc = `${BASE_URL}?lang=${encodeURIComponent(i18n.language || 'en')}`;
 
   return (
     <div
@@ -148,7 +206,7 @@ function App(): JSX.Element {
       <div className="flex-grow h-0 relative">
         {(() => {
           const tpLink = wifiInfo?.find(
-            item =>
+            (item: any) =>
               item.interfaceName?.startsWith('TP-Link') &&
               item.ssid?.includes('Veluna')
           );
@@ -165,7 +223,7 @@ function App(): JSX.Element {
               <webview
                 ref={webviewRef}
                 className="w-full h-full"
-                src="http://121.184.63.113:3000/"
+                src={initialSrc}
               />
             </>
           );
