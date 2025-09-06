@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import Veluna from '../assets/images/veluna_logo.png';
+import Veluna from '../assets/images/altinoai_logo.svg';
 import RemoteImage from '../assets/images/svg/remote.svg';
 import DriveImage from '../assets/images/svg/drive.svg';
 import WindowMinimizeImage from '../assets/images/svg/window-minimize.svg';
@@ -127,7 +127,7 @@ const Header: React.FC<Props> = ({ wifiInfo, reloadWebview }) => {
   const currentTpLink = wifiInfo?.find(
     (item: any) =>
       item?.interfaceName?.startsWith?.('TP-Link') &&
-      item?.ssid?.includes?.('Veluna')
+      item?.ssid?.includes?.('altinoai')
   );
 
   return (

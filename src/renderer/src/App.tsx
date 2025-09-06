@@ -52,7 +52,7 @@ function App(): JSX.Element {
   const currentSSID = wifiInfo?.find(
     (item: any) =>
       item.interfaceName?.startsWith('TP-Link') &&
-      item.ssid?.includes('Veluna')
+      item.ssid?.includes('altinoai')
   )?.ssid;
 
   // ✅ webview에 언어 반영 (in-page 우선, 실패 시 ?lang= 폴백)
@@ -184,7 +184,7 @@ function App(): JSX.Element {
     const isTPLinkConnected = wifiInfo?.some(
       (item: any) =>
         item.interfaceName?.startsWith('TP-Link') &&
-        item.ssid?.includes('Veluna')
+        item.ssid?.includes('altinoai')
     );
     if (!isTPLinkConnected) {
       setLoading(true);
@@ -208,7 +208,7 @@ function App(): JSX.Element {
           const tpLink = wifiInfo?.find(
             (item: any) =>
               item.interfaceName?.startsWith('TP-Link') &&
-              item.ssid?.includes('Veluna')
+              item.ssid?.includes('altinoai')
           );
 
           if (!tpLink) return <WiFi />;
