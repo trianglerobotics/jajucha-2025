@@ -1,0 +1,14 @@
+{
+  "refresh": "Refresh",
+  "logout": "Logout",
+  "language": "Language",
+  "wifi_connection": "Wi-Fi Connection",
+  "wifi_guide": "Wi-Fi Connection Guide",
+  "no_connection": "No connection",
+  "close": "Close",
+  "step_1": "1. Connect the <strong>Wi-Fi dongle</strong> to the USB port of your PC.",
+  "step_2": "2. Click the image below to open the <strong>Adapter Settings window</strong>.",
+  "step_3": "3. Check the Wi-Fi interface name for the <strong>TP-Link Wireless USB Adapter</strong> (e.g., <strong>Wi-Fi 2</strong>).",
+  "step_4": "4. Click the image below to open the <strong>Wi-Fi Connection window</strong>.",
+  "step_5": "5. Select the interface, choose the Wi-Fi starting with <strong>jajucha_</strong>, and enter the security key <strong>jajucha123</strong>."
+}

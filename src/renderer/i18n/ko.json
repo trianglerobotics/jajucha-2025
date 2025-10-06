@@ -1,0 +1,14 @@
+{
+  "refresh": "새로고침",
+  "logout": "로그아웃",
+  "language": "언어",
+  "wifi_connection": "Wi-Fi 연결",
+  "wifi_guide": "Wi-Fi 연결 가이드",
+  "no_connection": "연결없음",
+  "close": "닫기",
+  "step_1": "1. PC의 USB 포트에 <strong>Wi-Fi 동글</strong>을 연결합니다.",
+  "step_2": "2. 아래 이미지를 클릭하여 <strong>어댑터 설정 창</strong>을 엽니다.",
+  "step_3": "3. <strong>TP-Link Wireless USB Adapter</strong>에 해당하는 Wi-Fi 인터페이스 이름 (예: <strong>Wi-Fi 2</strong>)을 확인합니다.",
+  "step_4": "4. 아래 이미지를 클릭하여 <strong>Wi-Fi 연결 창</strong>을 엽니다.",
+  "step_5": "5. 인터페이스를 선택한 뒤, <strong>jajucha_</strong>로 시작하는 Wi-Fi를 선택하고 보안 키 <strong>jajucha123</strong>을 입력하세요."
+}
