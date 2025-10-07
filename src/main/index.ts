@@ -139,7 +139,7 @@ ipcMain.handle('get-battery-info', async () => {
 ipcMain.handle('get-wifi-info', async () => {
   try {
     // console.log('Getting Wi-Fi info...');
-    return getAllConnectedWifiInfo();
+    // return getAllConnectedWifiInfo();
 
     
   } catch (error) {
