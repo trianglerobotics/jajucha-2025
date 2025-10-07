@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import Header from './components/Header';
-import WiFi from './components/WiFi';
+import WiFi from './components/WiFi'; // WiFi 컴포넌트는 이제 사용되지 않지만, 혹시 몰라 import는 남겨둡니다.
 import MainBgImage from './assets/images/main-bg.jpg';
-import i18n from '../i18n'; // ✅ 부모앱 i18n
+import i18n from '../i18n';
 
 function App(): JSX.Element {
   const [wifiInfo, setWifiInfo] = useState<any>(null);
@@ -15,7 +15,7 @@ function App(): JSX.Element {
   const MAX_RETRIES = 10;
   const BASE_URL = 'http://121.184.63.113:3000/';
 
-  // ✅ Wi-Fi 정보 주기적으로 가져오기
+  // ✅ Wi-Fi 정보 주기적으로 가져오기 (이 기능은 Header 표시 등을 위해 유지)
   useEffect(() => {
     const fetchWifiInfo = async () => {
       try {
@@ -25,9 +25,10 @@ function App(): JSX.Element {
         console.error('❌ Error fetching Wi-Fi info:', error);
       }
     };
+    fetchWifiInfo();
 
-    const interval = setInterval(fetchWifiInfo, 1000);
-    return () => clearInterval(interval);
+    // const interval = setInterval(fetchWifiInfo, 1000);
+    // return () => clearInterval(interval);
   }, []);
 
   // ✅ Webview 수동 리로드
@@ -47,13 +48,9 @@ function App(): JSX.Element {
     setLoading(true);
     webview.reload();
   };
-
-  // ✅ 현재 TP-Link의 SSID 추출
-  const currentSSID = wifiInfo?.find(
-    (item: any) =>
-      item.interfaceName?.startsWith('TP-Link') &&
-      item.ssid?.includes('Veluna')
-  )?.ssid;
+  
+  // ✅ [제거됨] 현재 TP-Link의 SSID 추출 로직
+  // const currentSSID = ...
 
   // ✅ webview에 언어 반영 (in-page 우선, 실패 시 ?lang= 폴백)
   const applyLangToWebview = async (code: string) => {
@@ -64,7 +61,6 @@ function App(): JSX.Element {
       const ok = await wv.executeJavaScript(`
         (function(){
           try {
-            // 재방문 시 유지
             localStorage.setItem('i18nextLng', '${code}');
             if (window.i18n && typeof window.i18n.changeLanguage === 'function') {
               window.i18n.changeLanguage('${code}');
@@ -89,7 +85,7 @@ function App(): JSX.Element {
     }
   };
 
-  // ✅ 부모 i18n 변경을 webview에 브릿지 (Header에서 i18n.changeLanguage 호출 시 자동 반영)
+  // ✅ 부모 i18n 변경을 webview에 브릿지
   useEffect(() => {
     const handler = (lng: string) => {
       applyLangToWebview(lng);
@@ -99,16 +95,16 @@ function App(): JSX.Element {
   }, []);
 
   // ✅ webview 이벤트 등록 및 로딩 처리
+  // 💡 [수정] currentSSID 의존성을 제거하여 Wi-Fi 상태와 무관하게 항상 실행되도록 변경
   useEffect(() => {
     const webview = webviewRef.current as any;
-    if (!currentSSID || !webview) return;
+    if (!webview) return;
 
     const baseWidth = 1920;
     const currentWidth = window.innerWidth;
     const zoomFactor = currentWidth / baseWidth;
 
     const onDomReady = () => {
-      // 초기/재진입 시점에도 언어 한 번 반영 (안전망)
       applyLangToWebview(i18n.language);
     };
 
@@ -118,16 +114,11 @@ function App(): JSX.Element {
       setLoading(false);
       retryCountRef.current = 0;
       isReloadingRef.current = false;
-
-      // 로드 완료 후에도 한번 더 반영
       applyLangToWebview(i18n.language);
     };
 
     const onDidFailLoad = (e: any) => {
       console.warn('❌ Webview failed to load:', e?.errorDescription);
-      console.log('🧪 isReloadingRef:', isReloadingRef.current);
-      console.log('🧪 retryCountRef:', retryCountRef.current);
-      console.log('🧪 isMainFrame:', e?.isMainFrame);
 
       if (!e?.isMainFrame) {
         console.log('ℹ️ Ignoring subresource load failure');
@@ -160,7 +151,7 @@ function App(): JSX.Element {
       webview.removeEventListener('did-finish-load', onDidFinishLoad);
       webview.removeEventListener('did-fail-load', onDidFailLoad);
     };
-  }, [currentSSID]);
+  }, []); // 💡 의존성 배열에서 currentSSID 제거
 
   // ✅ 창 크기 조정 시 줌 비율 설정
   useEffect(() => {
@@ -179,19 +170,10 @@ function App(): JSX.Element {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // ✅ WiFi 끊겼을 때 로딩 스피너 유지
-  useEffect(() => {
-    const isTPLinkConnected = wifiInfo?.some(
-      (item: any) =>
-        item.interfaceName?.startsWith('TP-Link') &&
-        item.ssid?.includes('Veluna')
-    );
-    if (!isTPLinkConnected) {
-      setLoading(true);
-    }
-  }, [wifiInfo]);
+  // ✅ [제거됨] WiFi 끊겼을 때 로딩 스피너 유지 로직
+  // useEffect(() => { ... }, [wifiInfo]);
 
-  // ✅ 초기 진입도 현재 언어를 붙여 로드 (자식이 아직 i18n 전역을 못 노출한 시점 대비)
+  // ✅ 초기 진입도 현재 언어를 붙여 로드
   const initialSrc = `${BASE_URL}?lang=${encodeURIComponent(i18n.language || 'en')}`;
 
   return (
@@ -204,30 +186,19 @@ function App(): JSX.Element {
       </div>
 
       <div className="flex-grow h-0 relative">
-        {(() => {
-          const tpLink = wifiInfo?.find(
-            (item: any) =>
-              item.interfaceName?.startsWith('TP-Link') &&
-              item.ssid?.includes('Veluna')
-          );
-
-          if (!tpLink) return <WiFi />;
-
-          return (
-            <>
-              {loading && (
-                <div className="absolute inset-0 z-10 bg-black bg-opacity-60 flex items-center justify-center">
-                  <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-white border-opacity-70" />
-                </div>
-              )}
-              <webview
-                ref={webviewRef}
-                className="w-full h-full"
-                src={initialSrc}
-              />
-            </>
-          );
-        })()}
+        {/* 💡 [수정] Wi-Fi 연결 상태와 관계없이 항상 webview를 렌더링하도록 변경 */}
+        <>
+          {loading && (
+            <div className="absolute inset-0 z-10 bg-black bg-opacity-60 flex items-center justify-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-white border-opacity-70" />
+            </div>
+          )}
+          <webview
+            ref={webviewRef}
+            className="w-full h-full"
+            src={initialSrc}
+          />
+        </>
       </div>
     </div>
   );
